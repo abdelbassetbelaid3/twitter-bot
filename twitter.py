@@ -7,6 +7,8 @@ from time import sleep
 
 
 class bot:
+    scroll = 0
+
     def __init__(self, email, password, user_name="", driver_path=r'D:/SeleniumDrivers/chromedriver.exe', profile=r"C:\Users\abdel\AppData\Local\Google\Chrome\User Data",
                  user_data="C:\\Users\\abdel\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1", teardown=False) -> None:
         self.email = email  # email
@@ -44,6 +46,7 @@ class bot:
         if secruity.text == "":
             secruity.send_keys(self.user_name)
             secruity.send_keys(Keys.RETURN)
+        sleep(2)
         password = bot.find_element(By.NAME, "password")
         password.send_keys(self.password)
         password.send_keys(Keys.RETURN)
@@ -53,3 +56,12 @@ class bot:
         bot = self.driver
         bot.get("https://twitter.com/search?q=%23" + tag +
                 "&src=typeahead_click&f=live")
+
+    def auto_like(self):
+        bot = self.driver
+        for i in range(1100):
+            bot.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+        sleep(2)
+        articles = bot.find_elements(
+            By.XPATH, "//a[@class='css-4rbku5 css-18t94o4 css-1dbjc4n r-1loqt21 r-1pi2tsx r-1ny4l3l']")
+        print(len(articles))
