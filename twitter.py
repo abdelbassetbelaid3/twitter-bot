@@ -59,9 +59,14 @@ class bot:
 
     def auto_like(self):
         bot = self.driver
-        for i in range(1100):
-            bot.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-        sleep(2)
-        articles = bot.find_elements(
-            By.XPATH, "//a[@class='css-4rbku5 css-18t94o4 css-1dbjc4n r-1loqt21 r-1pi2tsx r-1ny4l3l']")
-        print(len(articles))
+        for i in range(2):
+            sleep(2)
+            tweet = bot.find_elements(
+                By.XPATH, "//div[@data-testid='like']")
+            for like in tweet:
+                try:
+                    like.click()
+                except:
+                    pass
+            sleep(2)
+            bot.execute_script("window.scroll(0,2000)")
